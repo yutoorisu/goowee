@@ -56,10 +56,10 @@ publishing {
 }
 
 signing {
-    useInMemoryPgpKeys(
-            System.getenv("GOOWEE_PRIVATE_KEY"),
-            System.getenv("GOOWEE_KEYCHAIN_PASSWORD")
-    )
+    def key = System.getenv("GPG_PRIVATE_KEY")
+    def pass = System.getenv("GPG_PASSPHRASE")
+
+    useInMemoryPgpKeys(key, pass)
     sign publishing.publications.mavenJava
     sign configurations.runtimeElements
 }
