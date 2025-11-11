@@ -12,46 +12,46 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package test
-//
-//import goowee.elements.components.BarChart
-//import goowee.elements.components.PieChart
+package test
+
+import goowee.elements.components.BarChart
+import goowee.elements.components.PieChart
 import goowee.elements.ElementsController
-//import goowee.elements.contents.ContentForm
-//
+import goowee.elements.contents.ContentForm
+
 class ChartsController implements ElementsController {
-//
-//    def index() {
-//        def c = createContent(ContentForm)
-//        c.header.removeNextButton()
-//        c.form.with {
-//            addField(
-//                    class: BarChart,
-//                    id: 'barChart1',
-//                    labels: ['FIAT', 'BMW', 'AUDI'],
-//                    values: [100, 133, 167],
-//                    colors: ['rgba(200, 0, 0, 0.6)', 'rgba(0, 200, 0, 0.6)', 'rgba(0, 0, 200, 0.6)'],
-//                    cols: 12,
-//            )
-//            addField(
-//                    class: PieChart,
-//                    id: 'pieChart1',
-//                    labels: ['FIAT', 'BMW', 'AUDI'],
-//                    values: [100, 133, 167],
-//                    colors: ['rgba(200, 0, 0, 0.6)', 'rgba(0, 200, 0, 0.6)', 'rgba(0, 0, 200, 0.6)'],
-//                    cols: 6,
-//            )
-//            addField(
-//                    class: BarChart,
-//                    id: 'barChart2',
-//                    labels: ['FIAT', 'BMW', 'AUDI'],
-//                    values: [100, 133, 167],
-//                    colors: ['rgba(200, 0, 0, 0.6)', 'rgba(0, 200, 0, 0.6)', 'rgba(0, 0, 200, 0.6)'],
-//                    cols: 6,
-//            )
-//        }
-//
-//        display content: c
-//    }
-//
+
+    def index() {
+        def c = createContent(ContentForm)
+        c.header.removeNextButton()
+        c.form.with {
+            addField(
+                    class: BarChart,
+                    id: 'barChart1',
+                    labels: ['FIAT', 'BMW', 'AUDI'],
+                    values: [100, 133, 167],
+                    colors: ['rgba(200, 0, 0, 0.6)', 'rgba(0, 200, 0, 0.6)', 'rgba(0, 0, 200, 0.6)'],
+                    cols: 12,
+            )
+            addField(
+                    class: PieChart,
+                    id: 'pieChart1',
+                    labels: ['FIAT', 'BMW', 'AUDI'],
+                    values: [100, 133, 167],
+                    colors: ['rgba(200, 0, 0, 0.6)', 'rgba(0, 200, 0, 0.6)', 'rgba(0, 0, 200, 0.6)'],
+                    cols: 6,
+            )
+            addField(
+                    class: BarChart,
+                    id: 'barChart2',
+                    labels: ['FIAT', 'BMW', 'AUDI'],
+                    values: [100, 133, 167],
+                    colors: ['rgba(200, 0, 0, 0.6)', 'rgba(0, 200, 0, 0.6)', 'rgba(0, 0, 200, 0.6)'],
+                    cols: 6,
+            )
+        }
+
+        display content: c
+    }
+
 }

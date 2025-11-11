@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation project(":goowee-core")
-//    implementation project(":goowee-extra")
+    implementation project(":goowee-extra")
 
     // Spring Boot DevTools may cause performance slowdowns or compatibility issues on larger applications
     developmentOnly "org.springframework.boot:spring-boot-devtools"
@@ -41,5 +41,6 @@ assets {
     minifyOptions = [
             //SIMPLE (default) or ADVANCED or WHITESPACE_ONLY
             optimizationLevel: "SIMPLE",
+            excludes: ["**/libs/**"]
     ]
 }
