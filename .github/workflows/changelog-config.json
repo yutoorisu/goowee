@@ -1,0 +1,11 @@
+{
+  "changeGroups": [
+    {
+      "title": "Commits",
+      "include": ["*"]
+    }
+  ],
+  "categories": ["Commits"],
+  "commitGroupingStrategy": "type",
+  "includeMergeCommits": false
+}

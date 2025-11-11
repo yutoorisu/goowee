@@ -55,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          configuration: ".github/changelog-config.json"
+          configuration: ".github/workflows/changelog-config.json"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
@@ -64,6 +64,17 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           release_name: "Release ${{ github.ref_name }}"
-          body: ${{ steps.changelog.outputs.changelog }}
+          body: |
+            ## Version ${{ github.ref_name }}
+            
+            ### What's changed
+            ${{ steps.changelog.outputs.changelog }}
+            
+            ### Commits
+            ${{ env.COMMITS }}
+            
+            ### Artifacts
+            - Maven: `https://repo1.maven.org/maven2/com/tuo/progetto/${{ github.ref_name }}/`
+
           draft: false
           prerelease: false
