@@ -393,6 +393,14 @@ class SecurityService implements WebRequestAware, LinkGeneratorAware {
     }
 
     /**
+     * Returns the list of currently logged in user groups
+     * @return the list of currently logged in user groups
+     */
+    List<TRoleGroup> getCurrentUserGroups() {
+        return TRoleGroup.listByUser(getCurrentUser().id)
+    }
+
+    /**
      * Returns the currently logged in user
      * @return the currently logged in user
      */
