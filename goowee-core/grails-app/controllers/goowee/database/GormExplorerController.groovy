@@ -31,6 +31,7 @@ import goowee.tenants.TenantService
 import goowee.types.CustomType
 import goowee.types.Types
 import grails.gorm.DetachedCriteria
+import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import jakarta.annotation.PostConstruct
 
@@ -310,6 +311,7 @@ class GormExplorerController implements ElementsController {
         display content: c, modal: true
     }
 
+    @Transactional
     def onCreate() {
         String tenantId = controllerSession['tenantId']
         Class domainClass = controllerSession['domainClass']
@@ -338,6 +340,7 @@ class GormExplorerController implements ElementsController {
         }
     }
 
+    @Transactional
     def onEdit() {
         String tenantId = controllerSession['tenantId']
         Class domainClass = controllerSession['domainClass']
@@ -356,6 +359,7 @@ class GormExplorerController implements ElementsController {
         }
     }
 
+    @Transactional
     def onDelete() {
         String tenantId = controllerSession['tenantId']
         Class domainClass = controllerSession['domainClass']
@@ -398,6 +402,7 @@ class GormExplorerController implements ElementsController {
         display content: c, modal: true, wide: true
     }
 
+    @Transactional
     def onExecuteSql() {
         def dataSource = connectionSourceService.getDataSource(params.connectionSource)
         def sql = params.sql
