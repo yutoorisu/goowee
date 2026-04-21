@@ -18,9 +18,10 @@ import goowee.commons.utils.FileUtils
 import goowee.commons.utils.StringUtils
 import goowee.core.ApplicationService
 import goowee.core.TSystemProperty
-import goowee.exceptions.ArgsException
+
 import grails.gorm.DetachedCriteria
 import grails.gorm.transactions.Transactional
+import groovy.contracts.Requires
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
@@ -118,12 +119,12 @@ class SystemPropertyService extends PropertyService {
 
     @Transactional
     @CompileDynamic
+    @Requires({ args.id })
     private TSystemProperty update(Map args) {
-        Serializable id = ArgsException.requireArgument(args, 'id')
         if (args.failOnError == null) args.failOnError = false
 
         TSystemProperty.withTransaction {
-            TSystemProperty obj = get(id)
+            TSystemProperty obj = get(args.id)
             obj.properties = args
             obj.save(flush: true, failOnError: args.failOnError)
             return obj

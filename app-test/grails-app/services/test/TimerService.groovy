@@ -23,7 +23,7 @@ class TimerService {
         return result
     }
 
-    Integer count(Integer total) {
+    Number count(Integer total) {
         return total
     }
 

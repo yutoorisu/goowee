@@ -21,7 +21,7 @@ import goowee.elements.Component
 import goowee.elements.Control
 import goowee.elements.Elements
 import goowee.elements.components.Button
-import goowee.exceptions.ArgsException
+import goowee.exceptions.ElementsException
 import goowee.types.Type
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
@@ -193,7 +193,7 @@ class Select extends Control {
 
         if (firstRecord) {
             if (!ObjectUtils.hasId(firstRecord) && !keys) {
-                throw new ArgsException("Object does not contain an 'id' property. You must specify at least one key in the 'keys' list.")
+                throw new ElementsException("Object does not contain an 'id' property. You must specify at least one key in the 'keys' list.")
             } else if (ObjectUtils.hasId(firstRecord) && !keys) {
                 keys = ['id']
             }

@@ -14,7 +14,7 @@
  */
 package goowee.core
 
-import goowee.exceptions.ArgsException
+import goowee.exceptions.ElementsException
 import goowee.utils.LocaleUtils
 import grails.web.servlet.mvc.GrailsHttpSession
 import grails.web.servlet.mvc.GrailsParameterMap
@@ -280,7 +280,7 @@ trait WebRequestAware {
         }
 
         if (result == null) {
-            throw new ArgsException("The required parameter '$paramName' has not been passed to the request and " +
+            throw new ElementsException("The required parameter '$paramName' has not been passed to the request and " +
                     "no value was stored in the 'controllerSession': params = ${requestParams}, " +
                     "controllerSession = ${controllerSession}")
         }

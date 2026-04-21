@@ -16,7 +16,7 @@ package goowee.core
 
 import goowee.commons.utils.FileUtils
 import goowee.elements.Elements
-import goowee.exceptions.ArgsException
+
 import goowee.exceptions.ElementsException
 import goowee.properties.SystemPropertyService
 import goowee.tenants.TenantService
@@ -619,7 +619,7 @@ class ApplicationService implements LinkGeneratorAware {
         // Main check
         String main = systemPropertyService.getString('DEFAULT_LANGUAGE')
         if (main !in available) {
-            throw new ArgsException("""
+            throw new ElementsException("""
                 The language '${main}' does not have a corresponding '/i18n/messages_${main}.properties' file,
                 please provide one or choose a default from ${available} then try again.
             """)

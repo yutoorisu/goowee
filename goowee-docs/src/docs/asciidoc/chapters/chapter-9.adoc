@@ -41,13 +41,13 @@ class TBook implements GormEntity, MultiTenant<TBook> {
 ----
 package com.example
 
-import goowee.exceptions.ArgsException
 import grails.gorm.DetachedCriteria
 import grails.gorm.multitenancy.CurrentTenant
 
 import jakarta.annotation.PostConstruct
 
 @CurrentTenant
+@CompileStatic
 class BookService {
 
     @PostConstruct
@@ -55,6 +55,7 @@ class BookService {
         // Executes only once when the application starts
     }
 
+    @CompileDynamic
     private DetachedCriteria<TBook> buildQuery(Map filterParams) {
         def query = TBook.where {}
 
@@ -96,11 +97,12 @@ class BookService {
         return query.list(fetchParams)
     }
 
-    Integer count(Map filterParams = [:]) {
+    Number count(Map filterParams = [:]) {
         def query = buildQuery(filterParams)
         return query.count()
     }
 
+    @Transactional
     TBook create(Map args = [:]) {
         if (args.failOnError == null) args.failOnError = false
 
@@ -109,16 +111,19 @@ class BookService {
         return obj
     }
 
+    @Transactional
+    @CompileDynamic
+    @Requires({ args.id  })
     TBook update(Map args = [:]) {
-        Serializable id = ArgsException.requireArgument(args, 'id')
         if (args.failOnError == null) args.failOnError = false
 
-        TBook obj = get(id)
+        TBook obj = get(args.id)
         obj.properties = args
         obj.save(flush: true, failOnError: args.failOnError)
         return obj
     }
 
+    @Transactional
     void delete(Serializable id) {
         TBook obj = get(id)
         obj.delete(flush: true, failOnError: true)

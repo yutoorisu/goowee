@@ -131,12 +131,12 @@ Services are classes located into the `/grails-app/services` folder whose name i
 ----
 package com.example
 
-import goowee.exceptions.ArgsException
 import grails.gorm.DetachedCriteria
 import grails.gorm.multitenancy.CurrentTenant
 import jakarta.annotation.PostConstruct
 
 @CurrentTenant
+@CompileStaic
 class PersonService {
 
     @PostConstruct
@@ -144,6 +144,7 @@ class PersonService {
         // Executes only once when the application starts
     }
 
+    @CompileDynamic
     private DetachedCriteria<TPerson> buildQuery(Map filterParams) {
         def query = TPerson.where {}
 
@@ -185,11 +186,12 @@ class PersonService {
         return query.list(fetchParams)
     }
 
-    Integer count(Map filterParams = [:]) {
+    Number count(Map filterParams = [:]) {
         def query = buildQuery(filterParams)
         return query.count()
     }
 
+    @Transactional
     TPerson create(Map args = [:]) {
         if (args.failOnError == null) args.failOnError = false
 
@@ -198,16 +200,19 @@ class PersonService {
         return obj
     }
 
+    @Transactional
+    @CompileDynamic
+    @Requires({ args.id  })
     TPerson update(Map args = [:]) {
-        Serializable id = ArgsException.requireArgument(args, 'id')
         if (args.failOnError == null) args.failOnError = false
 
-        TPerson obj = get(id)
+        TPerson obj = get(args.id)
         obj.properties = args
         obj.save(flush: true, failOnError: args.failOnError)
         return obj
     }
 
+    @Transactional
     void delete(Serializable id) {
         TPerson obj = get(id)
         obj.delete(flush: true, failOnError: true)

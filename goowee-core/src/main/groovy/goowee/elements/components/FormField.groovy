@@ -15,7 +15,7 @@
 package goowee.elements.components
 
 import goowee.elements.Component
-import goowee.exceptions.ArgsException
+import goowee.exceptions.ElementsException
 import groovy.transform.CompileStatic
 
 /**
@@ -87,7 +87,7 @@ class FormField extends Component {
             cols = columns
             colsSmall = columnsSmall
         } else {
-            throw new ArgsException("The '${component.getClass().simpleName}' control only accepts one of the following values for 'cols': " + acceptedCols.join(', '))
+            throw new ElementsException("The '${component.getClass().simpleName}' control only accepts one of the following values for 'cols': " + acceptedCols.join(', '))
         }
     }
 
@@ -96,7 +96,7 @@ class FormField extends Component {
             if (lines in acceptedRows) {
                 rows = lines
             } else {
-                throw new ArgsException("The '${component.getClass().simpleName}' control only accepts one of the following values for 'rows': " + acceptedRows.join(', '))
+                throw new ElementsException("The '${component.getClass().simpleName}' control only accepts one of the following values for 'rows': " + acceptedRows.join(', '))
             }
         } else {
             rows = lines

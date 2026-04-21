@@ -22,7 +22,7 @@ import goowee.elements.style.TextAlign
 import goowee.elements.style.TextStyle
 import goowee.elements.style.TextWrap
 import goowee.elements.style.VerticalAlign
-import goowee.exceptions.ArgsException
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 /**
@@ -43,12 +43,13 @@ class TableCell extends Component {
     TextAlign textAlign
     VerticalAlign verticalAlign
 
+    @Requires({ args.table && args.row && args.column })
     TableCell(Map args) {
         super(args)
 
-        table = (Table) ArgsException.requireArgument(args, 'table')
-        row = (TableRow) ArgsException.requireArgument(args, 'row')
-        column = ArgsException.requireArgument(args, 'column')
+        table = args.table as Table
+        row = args.row as TableRow
+        column = args.column
 
         colspan = 0
         rowspan = 0

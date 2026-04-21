@@ -18,9 +18,10 @@ import goowee.commons.utils.LogUtils
 import goowee.core.PrettyPrinterProperties
 import goowee.core.WebRequestAware
 import goowee.elements.style.Color
-import goowee.exceptions.ArgsException
+
 import goowee.exceptions.ElementsException
 import goowee.utils.EnvUtils
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 
@@ -115,8 +116,9 @@ abstract class Component implements WebRequestAware, Serializable {
     /** Custom CSS */
     String cssClass
 
+    @Requires({ args.id })
     Component(Map args) {
-        this.id = (String) ArgsException.requireArgument(args, 'id')
+        this.id = args.id
         components = [:]
         controls = [:]
         events = [:]; registerEvents(args)
@@ -278,9 +280,10 @@ abstract class Component implements WebRequestAware, Serializable {
      *
      * @return An instance of the specified component class
      */
+    @Requires({ args.class && args.id })
     public <T> T createComponent(Map args) {
-        Class<T> clazz = ArgsException.requireArgument(args, 'class') as Class<T>
-        String id = ArgsException.requireArgument(args, 'id')
+        Class<T> clazz = args.class as Class<T>
+        String id = args.id
 
         throwExceptionIfNameExists(args)
         throwExceptionIfNotComponent(clazz)
@@ -313,16 +316,16 @@ abstract class Component implements WebRequestAware, Serializable {
         String id = args.id
         String err = "with the same id '${id}' aready exists, please choose a different id."
         if (getControl(id)) {
-            throw new ArgsException("A control ${err}")
+            throw new ElementsException("A control ${err}")
         }
         if (getComponent(id)) {
-            throw new ArgsException("A component ${err}")
+            throw new ElementsException("A component ${err}")
         }
     }
 
     private void throwExceptionIfNotComponent(Class clazz) {
         if (clazz !in Component) {
-            throw new ArgsException("Cannot create '${clazz}' because it's not of type '${Component.canonicalName}'.")
+            throw new ElementsException("Cannot create '${clazz}' because it's not of type '${Component.canonicalName}'.")
         }
     }
 
@@ -520,9 +523,10 @@ abstract class Component implements WebRequestAware, Serializable {
      *
      * @return An instance of the specified control class
      */
+    @Requires({ args.class && args.id })
     protected <T> T createControl(Map args) {
-        Class<T> clazz = ArgsException.requireArgument(args, 'class') as Class<T>
-        String id = ArgsException.requireArgument(args, 'id')
+        Class<T> clazz = args.class as Class<T>
+        String id = args.id
 
         throwExceptionIfNameExists(args)
         initializeComponent(args)
@@ -616,16 +620,13 @@ abstract class Component implements WebRequestAware, Serializable {
      *
      * @param args Named parameters. At least an 'event' and an 'action' must be specified
      */
+    @Requires({ args.event && args.action })
     Component on(Map args) {
-        Map required = ArgsException.requireArgument(args, ['event', 'action'])
-
         args.controller = args.controller ?: controllerName
-        args.action = required.action
+        List eventList = (args.event in List)
+                ? (List) args.event
+                : [args.event]
         args.remove('event')
-
-        List eventList = (required.event in List)
-                ? (List) required.event
-                : [required.event]
 
         Map<String, ComponentEvent> eventMap = [:]
         for (event in eventList) {

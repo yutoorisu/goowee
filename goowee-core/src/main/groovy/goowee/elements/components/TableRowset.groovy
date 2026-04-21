@@ -15,7 +15,7 @@
 package goowee.elements.components
 
 import goowee.elements.Component
-import goowee.exceptions.ArgsException
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 /**
@@ -37,10 +37,11 @@ class TableRowset extends Component {
     Boolean isHeader
     Boolean isFooter
 
+    @Requires({ args.table })
     TableRowset(Map args) {
         super(args)
 
-        table = (Table) ArgsException.requireArgument(args, 'table')
+        table = args.table as Table
 
         rows = []
         firstRow = null

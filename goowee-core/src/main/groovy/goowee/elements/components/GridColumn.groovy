@@ -1,7 +1,7 @@
 package goowee.elements.components
 
 import goowee.elements.Component
-import goowee.exceptions.ArgsException
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 @CompileStatic
@@ -16,10 +16,11 @@ class GridColumn extends Component {
     Integer xl
     Integer xxl
 
+    @Requires({ args.grid })
     GridColumn(Map args) {
         super(args)
 
-        grid = ArgsException.requireArgument(args, 'grid') as Grid
+        grid = args.grid as Grid
 
         // No default for breakpoints since it would require
         // to set all of them everytime

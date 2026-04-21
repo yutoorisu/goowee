@@ -19,7 +19,7 @@ import goowee.commons.utils.FileUtils
 import goowee.core.ApplicationService
 import goowee.core.ConnectionSourceService
 import goowee.core.TSystemInstall
-import goowee.exceptions.ArgsException
+
 import goowee.properties.SystemPropertyService
 import goowee.security.TRoleGroup
 import goowee.security.TRoleGroupRole
@@ -29,6 +29,7 @@ import goowee.utils.ResourceUtils
 import grails.gorm.DetachedCriteria
 import grails.gorm.multitenancy.Tenants
 import grails.gorm.transactions.Transactional
+import groovy.contracts.Requires
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
@@ -232,11 +233,11 @@ class TenantService {
 
     @Transactional
     @CompileDynamic
+    @Requires({ args.id })
     TTenant update(Map args) {
-        Serializable id = ArgsException.requireArgument(args, 'id')
         if (args.failOnError == null) args.failOnError = false
 
-        TTenant obj = get(id)
+        TTenant obj = get(args.id)
         obj.properties = args
         obj.save(flush: true, failOnError: args.failOnError)
         return obj

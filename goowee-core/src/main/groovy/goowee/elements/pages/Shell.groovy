@@ -17,7 +17,7 @@ package goowee.elements.pages
 import goowee.core.LinkDefinition
 import goowee.elements.Page
 import goowee.elements.contents.ContentHome
-import goowee.exceptions.ArgsException
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 
@@ -40,11 +40,12 @@ class Shell extends Page {
     String username
     String userFullname
 
+    @Requires({ args.config })
     Shell(Map args) {
         super(args)
 
         // Default configuration
-        config = (ShellConfig) ArgsException.requireArgument(args, 'config')
+        config = args.config as ShellConfig
 
         username = ''
         userFullname = ''

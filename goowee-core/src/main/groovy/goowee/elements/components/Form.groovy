@@ -19,12 +19,13 @@ import goowee.elements.Component
 import goowee.elements.Control
 import goowee.elements.Elements
 import goowee.elements.controls.HiddenField
-import goowee.exceptions.ArgsException
+
 import goowee.exceptions.ElementsException
 import goowee.types.Type
 import goowee.types.Types
 import grails.gorm.validation.ConstrainedProperty
 import grails.validation.Validateable
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 import java.lang.reflect.Field
@@ -66,9 +67,10 @@ class Form extends Component {
         return fields
     }
 
+    @Requires({ args.class && args.id })
     FormField addField(Map args) {
-        Class clazz = ArgsException.requireArgument(args, 'class') as Class
-        String id = ArgsException.requireArgument(args, 'id')
+        Class clazz = args.class as Class
+        String id = args.id
 
         Map fieldConstraints = getFieldConstraints(validate, id)
         // Auto assigns 'nullable' flag

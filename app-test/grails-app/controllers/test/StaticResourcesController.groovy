@@ -17,7 +17,11 @@ package test
 import goowee.elements.ElementsController
 import goowee.elements.components.Table
 import goowee.elements.components.TableRow
+import grails.gorm.multitenancy.CurrentTenant
+import grails.gorm.transactions.Transactional
 
+@Transactional
+@CurrentTenant
 class StaticResourcesController implements ElementsController {
 
     def index() {

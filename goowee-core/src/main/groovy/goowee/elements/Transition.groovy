@@ -16,9 +16,10 @@ package goowee.elements
 
 import goowee.core.LinkDefinition
 import goowee.core.WebRequestAware
-import goowee.exceptions.ArgsException
+
 import goowee.exceptions.ElementsException
 import goowee.types.Types
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 /**
@@ -63,9 +64,10 @@ class Transition implements WebRequestAware {
         return addComponent(args)
     }
 
+    @Requires({ args.class && args.id })
     public <T> T addComponent(Map args) {
-        Class<T> clazz = ArgsException.requireArgument(args, 'class') as Class<T>
-        String id = ArgsException.requireArgument(args, 'id')
+        Class<T> clazz = args.class as Class<T>
+        String id = args.id
 
         args.remove('class')
         args.remove('id')

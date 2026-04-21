@@ -24,9 +24,10 @@ import goowee.elements.style.TextAlign
 import goowee.elements.style.TextStyle
 import goowee.elements.style.TextWrap
 import goowee.elements.style.VerticalAlign
-import goowee.exceptions.ArgsException
+
 import goowee.types.Money
 import goowee.types.Quantity
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 import java.time.temporal.Temporal
@@ -56,12 +57,13 @@ class TableRow extends Component {
     VerticalAlign verticalAlign
     List<TextStyle> textStyle
 
+    @Requires({ args.table && args.rowset && args.index != null })
     TableRow(Map args) {
         super(args)
 
-        table = (Table) ArgsException.requireArgument(args, 'table')
-        rowset = (TableRowset) ArgsException.requireArgument(args, 'rowset')
-        index = (Integer) ArgsException.requireArgument(args, 'index')
+        table = args.table as Table
+        rowset = args.rowset as TableRowset
+        index = args.index as Integer
 
         cells = [:]
         submit = [:]

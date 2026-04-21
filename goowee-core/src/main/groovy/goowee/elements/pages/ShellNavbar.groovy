@@ -18,7 +18,7 @@ import goowee.elements.Component
 import goowee.elements.components.Button
 import goowee.elements.components.Image
 import goowee.elements.components.Link
-import goowee.exceptions.ArgsException
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 /**
@@ -32,12 +32,13 @@ class ShellNavbar extends Component {
     Button home
     Link logo
 
+    @Requires({ args.shell })
     ShellNavbar(Map args) {
         super(args)
 
         viewPath = '/goowee/elements/pages/'
 
-        shell = (Shell) ArgsException.requireArgument(args, 'shell')
+        shell = args.shell as Shell
         home = (Button) createComponent(
                 class: Button,
                 id: 'home',

@@ -15,7 +15,7 @@
 package goowee.elements.pages
 
 import goowee.elements.Menu
-import goowee.exceptions.ArgsException
+import groovy.contracts.Requires
 import groovy.transform.CompileStatic
 
 /**
@@ -28,12 +28,13 @@ class ShellUserMenu extends Menu {
     Shell shell
     String title
 
+    @Requires({ args.shell })
     ShellUserMenu(Map args) {
         super(args)
 
         viewPath = '/goowee/elements/pages/'
 
-        shell = (Shell) ArgsException.requireArgument(args, 'shell')
+        shell = args.shell as Shell
         title = prettyPrint('shell.user.menu')
     }
 }

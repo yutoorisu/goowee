@@ -16,7 +16,7 @@ package goowee.properties
 
 import goowee.commons.utils.StringUtils
 import goowee.core.GuiStyle
-import goowee.exceptions.ArgsException
+
 import goowee.security.CryptoService
 import goowee.tenants.TTenantProperty
 import goowee.tenants.TenantService
@@ -24,6 +24,7 @@ import goowee.utils.EnvUtils
 import grails.gorm.DetachedCriteria
 import grails.gorm.multitenancy.CurrentTenant
 import grails.gorm.transactions.Transactional
+import groovy.contracts.Requires
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
@@ -145,11 +146,11 @@ class TenantPropertyService extends PropertyService {
 
     @Transactional
     @CompileDynamic
+    @Requires({ args.id })
     private TTenantProperty update(Map args) {
-        Serializable id = ArgsException.requireArgument(args, 'id')
         if (args.failOnError == null) args.failOnError = false
 
-        TTenantProperty obj = get(id)
+        TTenantProperty obj = get(args.id)
         obj.properties = args
         obj.save(flush: true, failOnError: args.failOnError)
         return obj
