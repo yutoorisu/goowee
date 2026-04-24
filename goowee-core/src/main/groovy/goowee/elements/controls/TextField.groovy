@@ -14,7 +14,6 @@
  */
 package goowee.elements.controls
 
-import goowee.elements.Component
 import goowee.elements.Control
 import goowee.elements.Elements
 import goowee.elements.components.Button
@@ -73,12 +72,6 @@ class TextField extends Control {
                 group: true,
                 dontCreateDefaultAction: true,
         )
-    }
-
-    @Override
-    Component onSubmit(Map args) {
-        args.event = 'enter'
-        return on(args)
     }
 
     String getInputType() {

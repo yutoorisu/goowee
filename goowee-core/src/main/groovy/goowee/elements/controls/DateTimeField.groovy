@@ -66,12 +66,20 @@ class DateTimeField extends Control {
     }
 
     @Override
-    Component onSubmit(Map args) {
-        args.event = 'enter'
-        on(args)
+    Component onSubmit(Map args) {S
+        String submitEvent = 'enter'
+        if (!hasEvent(submitEvent)) {
+            args.event = submitEvent
+            on(args)
+        }
 
-        args.event = 'change'
-        return on(args)
+        submitEvent = 'change'
+        if (!hasEvent(submitEvent)) {
+            args.event = submitEvent
+            on(args)
+        }
+
+        return this
     }
 
     @Override
