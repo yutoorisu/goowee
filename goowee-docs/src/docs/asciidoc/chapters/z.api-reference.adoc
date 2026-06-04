@@ -348,7 +348,7 @@ class BootStrap {
 
 [[features]]
 == Features
-A _Goowee_ application is a container for a finite set of features that you want to expose to the users. Features are defined in the `init` closure. The main menu on the right side of the GUI lists all the features accessible by a user depending on its privileges.
+A Goowee application is a container for a finite set of features that you want to expose to the users. Features are defined in the `init` closure. The main menu on the right side of the GUI lists all the features accessible by a user depending on its privileges.
 
 Once defined, features are than implemented in <<controllers>>.
 
@@ -456,7 +456,7 @@ Available options:
 |`direct`
 |`Boolean`
 |
-|_(OPTIONAL)_ Menu items are URLs managed by _Goowee_. When set to `true` the URL gets managed directly by the browser without any processing
+|_(OPTIONAL)_ Menu items are URLs managed by Goowee. When set to `true` the URL gets managed directly by the browser without any processing
 
 |`target`
 |`String`
@@ -585,7 +585,7 @@ class BootStrap {
 === Controllers
 A controller is a container for a set of actions. When a user interacts with the GUI an Action could be called to execute some logic. Actions are grouped in controllers so we can split and organize the application to fit the business domain.
 
-A Controller is a Groovy class and each method is an Action. In the following example we see the structure of a _Goowee_ controller for a CRUD operation.
+A Controller is a Groovy class and each method is an Action. In the following example we see the structure of a Goowee controller for a CRUD operation.
 
 .grails-app/controllers/BookController.groovy
 [source,groovy]
@@ -619,7 +619,7 @@ class BookController implements ElementsController { // <2>
 }
 ----
 <1> The `@Secured` annotation let all the actions from this controller be accessed only by users with the `ROLE_CAN_EDIT_BOOKS` authority.
-<2> Implementing `ElementsController` the _Goowee_ API will become available
+<2> Implementing `ElementsController` the Goowee API will become available
 <3> As a convention, all actions building and displaying a GUI are named after a verb or a name while all actions that execute a business logic are identified by a name starting with `on`.
 
 === Actions
@@ -897,7 +897,7 @@ class BookController implements ElementsController {
 image::images/api-reference/reference-book-validation.png[Book listing]
 
 === Internationalization (i18n)
-When building the GUI, _Goowee_ automatically suggests labels for any relevant component requiring a text. To translate those labels we just copy them to its corresponding `grails-app/i18n/messages_*.properties` file giving them a translation.
+When building the GUI, Goowee automatically suggests labels for any relevant component requiring a text. To translate those labels we just copy them to its corresponding `grails-app/i18n/messages_*.properties` file giving them a translation.
 
 For example to enable the English and Italian languages we can do as follows.
 
@@ -940,7 +940,7 @@ The _User Menu_ will automatically display the available languages based on the 
 image::images/api-reference/reference-book-languages.png[Available languages]
 
 === display()
-The most relevant feature of _Goowee_ is the `display` method. It renders the GUI on the server and sends is to the browser.
+The most relevant feature of Goowee is the `display` method. It renders the GUI on the server and sends is to the browser.
 
 You can call `display` with one or more of the following parameters:
 
@@ -1147,7 +1147,7 @@ image::images/api-reference/reference-book-exception-handled.png[onChange transi
 [[contents]]
 == Contents
 
-Contents are the canvas to each feature. You can create a `ContentBlank`, which is a plain empty canvas, and add <<components>> to it. This is not something you will usually want to do since _Goowee_ provides pre-assembled contents to be used right away.
+Contents are the canvas to each feature. You can create a `ContentBlank`, which is a plain empty canvas, and add <<components>> to it. This is not something you will usually want to do since Goowee provides pre-assembled contents to be used right away.
 
 Components are added to the content on a _vertical stripe_ one after the other. We can not layout components, to create a layout we need to use the `Form` component or we can create a custom component.
 
@@ -1171,9 +1171,9 @@ The `Table` component is configured to present and _Edit_ and a _Delete_ `Button
 
 [[components]]
 == Components
-Everything in _Goowee_ is a `Component`. A component is itself a tiny web application. Each component is built with at least an HTML view, a CSS styling and a JavaScript logic. A Component can provide a supporting `Service` or `Controller`.
+Everything in Goowee is a `Component`. A component is itself a tiny web application. Each component is built with at least an HTML view, a CSS styling and a JavaScript logic. A Component can provide a supporting `Service` or `Controller`.
 
-Unless we want to create a new component there is no need to know HTML, CSS or JavaScript to develop a _Goowee_ application.
+Unless we want to create a new component there is no need to know HTML, CSS or JavaScript to develop a Goowee application.
 
 Each component extends the base class `Component` so each component share the following properties and methods.
 
@@ -3463,7 +3463,7 @@ The following properties can be specified when configuring an event on a compone
 [[pretty-printer-properties]]
 == PrettyPrinterProperties
 
-Every value in _Goowee_ gets displayed by the `PrettyPrinter` subsystem. <<components>> and <<controls>> can be configured to override the user settings and the system settings. Refer to the documentation of each component to see how those settings can be configured.
+Every value in Goowee gets displayed by the `PrettyPrinter` subsystem. <<components>> and <<controls>> can be configured to override the user settings and the system settings. Refer to the documentation of each component to see how those settings can be configured.
 
 [cols="1,1,1,7a"]
 |===
